@@ -1,6 +1,6 @@
 import React from "react";
 import InputMask from 'react-input-mask';
-import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
+import { Button, Container, Divider, Form, Icon, TextArea } from 'semantic-ui-react';
 
 export default function FormCliente () {
 
@@ -12,7 +12,7 @@ export default function FormCliente () {
 
                 <Container textAlign='justified' >
 
-                    <h2> <span style={{color: 'darkgray'}}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
+                    <h2> <span style={{color: 'darkgray'}}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
 
                     <Divider />
 
@@ -25,14 +25,14 @@ export default function FormCliente () {
                                 <Form.Input
                                     required
                                     fluid
-                                    label='Nome'
+                                    label='Título'
                                     maxLength="100"
                                 />
 
                                 <Form.Input
                                     required
                                     fluid
-                                    label='CPF'>
+                                    label='Código do Produto'>
                                     <InputMask
                                         required
                                         mask="999.999.999-99"
@@ -41,35 +41,47 @@ export default function FormCliente () {
 
                             </Form.Group>
                             
-                            <Form.Group>
+                            <Form.Group widths= 'equal'>
+                            <Form.Field
+                                id='form-textarea-control-opinion'
+                                control={TextArea}
+                                label='Descrição'
+                                placeholder='...'
 
+                            />
+                            </Form.Group>
+
+                            <Form.Group widths={"equal"}>
                                 <Form.Input
                                     fluid
-                                    label='Fone Celular'
+                                    required
+                                    label='Valor Unitário'
                                     width={6}>
                                     <InputMask 
-                                        mask="(99) 9999.9999"
+                                        mask="999.999.999,99"
+                                        placeholder="R$"
                                     /> 
                                 </Form.Input>
 
                                 <Form.Input
                                     fluid
-                                    label='Fone Fixo'
+                                    label='Tempo de Entrega Mínimo'
                                     width={6}>
                                     <InputMask 
-                                        mask="(99) 9999.9999"
+                                        mask="99999"
+                                        placeholder="Informe em minutos"
                                     /> 
                                 </Form.Input>
 
                                 <Form.Input
                                     fluid
-                                    label='Data Nascimento'
+                                    label='Tempo de Entrega Máximo'
                                     width={6}
                                 >
                                     <InputMask 
-                                        mask="99/99/9999" 
+                                        mask="9999" 
                                         maskChar={null}
-                                        placeholder="dd/mm/aaaa"
+                                        placeholder="Informe em minutos"
                                     /> 
                                 </Form.Input>
 

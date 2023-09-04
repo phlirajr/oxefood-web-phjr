@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 import InputMask from 'react-input-mask';
-import { Button, Container, Divider, Form, Icon} from 'semantic-ui-react';
+import { Button, Container, Divider, Form, Icon, Radio} from 'semantic-ui-react';
 
 const options = [
     {key:	"Acre" , text:"AC" , value: "ac"},
@@ -32,7 +32,14 @@ const options = [
     {key:	"Tocantins", text:"TO" , value: "to"}
 ]
 
-export default function FormCliente () {
+class FormEntregador extends Component {
+
+    state = {}
+
+    handleChange = (e, { value }) => this.setState({ value })
+  
+    render() {
+      const { value } = this.state
 
     return (
 
@@ -48,7 +55,7 @@ export default function FormCliente () {
 
                     <div style={{marginTop: '4%'}}>
 
-                        <Form>
+                        <Form> 
 
                             <Form.Group widths='equal'>
 
@@ -186,14 +193,23 @@ export default function FormCliente () {
                                 </Form.Input>
                             </Form.Group>
 
-                            {/* <Form.Group widths= 'equal'>
-                            <Form.Radio
-                                label='Large'
-                                value='lg'
-                                checked={value === 'lg'}
-                                onChange={this.handleChange}
-                            />
-                            </Form.Group> */}
+                            <Form.Group inline>
+                                <label>Ativo:</label>
+                                <Form.Field
+                                    control={Radio}
+                                    label='Sim'
+                                    value='1'
+                                    checked={value === '1'}
+                                    onChange={this.handleChange}
+                                />
+                                <Form.Field
+                                    control={Radio}
+                                    label='Não'
+                                    value='0'
+                                    checked={value === '0'}
+                                    onChange={this.handleChange}
+                                />
+                            </Form.Group>
                         
                         </Form>
                         
@@ -232,5 +248,7 @@ export default function FormCliente () {
         </div>
 
     );
-
+    };                        
 }
+
+export default FormEntregador;

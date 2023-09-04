@@ -1,34 +1,35 @@
 import React from "react";
 import InputMask from 'react-input-mask';
-import { Button, Container, Divider, Form, Icon, TextArea } from 'semantic-ui-react';
+import { Button, Container, Divider, Form, Icon} from 'semantic-ui-react';
 
 const options = [
-    {key:	"Acre" , text:"" , value: ""},
-    {key:	"Alagoas"},
-    {key:	"Amapá"},
-    {key:	"Amazonas"},
-    {key:	"Bahia"},
-    {key:	"Ceará"},
-    {key:	"Espírito Santo"},
-    {key:	"Goiás"},
-    {key:	"Maranhão"},
-    {key:	"Mato Grosso"},
-    {key:	"Mato Grosso do Sul"},
-    {key:	"Minas Gerais"},
-    {key:	"Pará"},
-    {key:	"Paraíba"},
-    {key:	"Paraná"},
-    {key:	"Pernambuco"},
-    {key:	"Piauí"},
-    {key:	"Rio de Janeiro"},
-    {key:	"Rio Grande do Norte"},
-    {key:	"Rio Grande do Sul"},
-    {key:	"Rondônia"},
-    {key:	"Roraima"},
-    {key:	"Santa Catarina"},
-    {key:	"São Paulo"},
-    {key:	"Sergipe"},
-    {key:	"Tocantins"}
+    {key:	"Acre" , text:"AC" , value: "ac"},
+    {key:	"Alagoas", text:"AL" , value: "al"},
+    {key:	"Amapá", text:"AP" , value: "ap"},
+    {key:	"Amazonas", text:"AM" , value: "am"},
+    {key:	"Bahia", text:"BA" , value: "ba"},
+    {key:	"Ceará", text:"CE" , value: "ce"},
+    {key:	"Distrito Federal", text:"DF" , value: "df"},
+    {key:	"Espírito Santo", text:"ES" , value: "es"},
+    {key:	"Goiás", text:"GO" , value: "go"},
+    {key:	"Maranhão", text:"MA" , value: "ma"},
+    {key:	"Mato Grosso", text:"MT" , value: "mt"},
+    {key:	"Mato Grosso do Sul", text:"MS" , value: "ms"},
+    {key:	"Minas Gerais", text:"MG" , value: "mg"},
+    {key:	"Pará", text:"PA" , value: "pa"},
+    {key:	"Paraíba", text:"PB" , value: "pb"},
+    {key:	"Paraná", text:"PR" , value: "pr"},
+    {key:	"Pernambuco", text:"PE" , value: "pe"},
+    {key:	"Piauí", text:"PI" , value: "pi"},
+    {key:	"Rio de Janeiro", text:"RJ" , value: "rj"},
+    {key:	"Rio Grande do Norte", text:"RN" , value: "rn"},
+    {key:	"Rio Grande do Sul", text:"RS" , value: "rs"},
+    {key:	"Rondônia", text:"RO" , value: "ro"},
+    {key:	"Roraima", text:"RR" , value: "rr"},
+    {key:	"Santa Catarina", text:"SC" , value: "sc"},
+    {key:	"São Paulo", text:"SP" , value: "sp"},
+    {key:	"Sergipe", text:"SE" , value: "se"},
+    {key:	"Tocantins", text:"TO" , value: "to"}
 ]
 
 export default function FormCliente () {
@@ -169,62 +170,30 @@ export default function FormCliente () {
 
                             </Form.Group>
                             <Form.Group widths='equal'>
-                                <Form.Input fluid label='First name' placeholder='First name' />
-                                <Form.Input fluid label='Last name' placeholder='Last name' />
                                 <Form.Select
                                     fluid
-                                    label='Gender'
+                                    label='UF'
                                     options={options}
-                                    placeholder='Gender'
+                                    placeholder='Selecione o seu estado'
                                 />
-                            </Form.Group>
-                            
-                            
-                            <Form.Group widths= 'equal'>
-                            <Form.Field
-                                id='form-textarea-control-opinion'
-                                control={TextArea}
-                                label='Descrição'
-                                placeholder='...'
-
-                            />
                             </Form.Group>
 
                             <Form.Group widths={"equal"}>
                                 <Form.Input
                                     fluid
-                                    required
-                                    label='Valor Unitário'
-                                    width={6}>
-                                    <InputMask 
-                                        mask="999.999.999,99"
-                                        placeholder="R$"
-                                    /> 
-                                </Form.Input>
-
-                                <Form.Input
-                                    fluid
-                                    label='Tempo de Entrega Mínimo'
-                                    width={6}>
-                                    <InputMask 
-                                        mask="99999"
-                                        placeholder="Informe em minutos"
-                                    /> 
-                                </Form.Input>
-
-                                <Form.Input
-                                    fluid
-                                    label='Tempo de Entrega Máximo'
-                                    width={6}
+                                    label='Complemento'
                                 >
-                                    <InputMask 
-                                        mask="9999" 
-                                        maskChar={null}
-                                        placeholder="Informe em minutos"
-                                    /> 
                                 </Form.Input>
-
                             </Form.Group>
+
+                            {/* <Form.Group widths= 'equal'>
+                            <Form.Radio
+                                label='Large'
+                                value='lg'
+                                checked={value === 'lg'}
+                                onChange={this.handleChange}
+                            />
+                            </Form.Group> */}
                         
                         </Form>
                         

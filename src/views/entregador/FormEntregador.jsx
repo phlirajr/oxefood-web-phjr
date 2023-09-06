@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon, Radio} from 'semantic-ui-react';
+import MenuSistema from "../../MenuSistema";
 
 const options = [
     {key:	"Acre" , text:"AC" , value: "ac"},
@@ -44,7 +45,7 @@ class FormEntregador extends Component {
     return (
 
         <div>
-
+            <MenuSistema/>
             <div style={{marginTop: '3%'}}>
 
                 <Container textAlign='justified' >

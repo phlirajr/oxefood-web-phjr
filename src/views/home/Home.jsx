@@ -17,8 +17,8 @@ export default function Home () {
                            <Grid.Column>                              
                                Bem vindo ao sistema <strong>OxeFood</strong> ! <br/>
                                Este sistema foi desenvolvido na disciplina de Desenvolvimento para WEB IV. <br/> <br/>
-                               Para acessar o código da <strong>API</strong> do sistema, acesse: <a href='https://github.com/phlirajr/oxefood-api-phjr' target='_blank'> https://github.com/phlirajr/oxefood-api-phjr </a> <br/> <br/>
-                               Para acessar o código do <strong>Módulo WEB</strong>, acesse: <a href='https://github.com/phlirajr/oxefood-web-phjr' target='_blank'> https://github.com/phlirajr/oxefood-web-phjr </a>
+                               Para acessar o código da <strong>API</strong> do sistema, acesse: <a href='https://github.com/phlirajr/oxefood-api-phjr' target=''> https://github.com/phlirajr/oxefood-api-phjr </a> <br/> <br/>
+                               Para acessar o código do <strong>Módulo WEB</strong>, acesse: <a href='https://github.com/phlirajr/oxefood-web-phjr' target=''> https://github.com/phlirajr/oxefood-web-phjr </a>
                            </Grid.Column>
                        </Grid.Row>
                    </Grid>

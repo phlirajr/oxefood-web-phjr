@@ -1,9 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon, TextArea } from 'semantic-ui-react';
 import MenuSistema from "../../MenuSistema";
+import axios from "axios";
 
 export default function FormCliente () {
+
+    const [titulo, setTitulo] = useState();
+    const [codProduto, setCodProduto] = useState();
+    const [descricao, setDescricao] = useState();
+    const [valorUnitario, setValorUnitario] = useState();
+    const [tempoEntregaMinimo, setTempoEntregaMinino] = useState();
+    const [tempoEntregaMaximo, setTempoEntregaMaximo] = useState();
+
+    function salvar() {
+
+		let produtoRequest = {
+		     titulo: titulo,
+		     codProduto: codProduto,
+		     descricao: descricao,
+		     valorUnitario: valorUnitario,
+		     tempoEntregaMinimo: tempoEntregaMinimo,
+             tempoEntregaMaximo: tempoEntregaMaximo
+		}
+        console.log(produtoRequest)
+		axios.post("http://localhost:8080/api/produto", produtoRequest)
+		.then((response) => {
+		     console.log('Produto cadastrado com sucesso.')
+		})
+		.catch((error) => {
+		     console.log('Erro ao incluir um produto.')
+		})
+	}
+
 
     return (
 
@@ -28,6 +57,8 @@ export default function FormCliente () {
                                     fluid
                                     label='Título'
                                     maxLength="100"
+                                    value={titulo}
+			                        onChange={e => setTitulo(e.target.value)}
                                 />
 
                                 <Form.Input
@@ -37,6 +68,8 @@ export default function FormCliente () {
                                     <InputMask
                                         required
                                         mask="999.999.999-99"
+                                        value={codProduto}
+			                            onChange={e => setCodProduto(e.target.value)}
                                     /> 
                                 </Form.Input>
 
@@ -48,6 +81,8 @@ export default function FormCliente () {
                                 control={TextArea}
                                 label='Descrição'
                                 placeholder='...'
+                                value={descricao}
+			                    onChange={e => setDescricao(e.target.value)}
 
                             />
                             </Form.Group>
@@ -61,6 +96,8 @@ export default function FormCliente () {
                                     <InputMask 
                                         mask="999.999.999,99"
                                         placeholder="R$"
+                                        value={valorUnitario}
+			                            onChange={e => setValorUnitario(e.target.value)}
                                     /> 
                                 </Form.Input>
 
@@ -71,6 +108,8 @@ export default function FormCliente () {
                                     <InputMask 
                                         mask="99999"
                                         placeholder="Informe em minutos"
+                                        value={tempoEntregaMinimo}
+			                            onChange={e => setTempoEntregaMinino(e.target.value)}
                                     /> 
                                 </Form.Input>
 
@@ -83,6 +122,8 @@ export default function FormCliente () {
                                         mask="9999" 
                                         maskChar={null}
                                         placeholder="Informe em minutos"
+                                        value={tempoEntregaMaximo}
+			                            onChange={e => setTempoEntregaMaximo(e.target.value)}
                                     /> 
                                 </Form.Input>
 
@@ -111,6 +152,7 @@ export default function FormCliente () {
                                 labelPosition='left'
                                 color='blue'
                                 floated='right'
+                                onClick={() => salvar()}
                             >
                                 <Icon name='save' />
                                 Salvar

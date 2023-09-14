@@ -3,8 +3,9 @@ import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon, TextArea } from 'semantic-ui-react';
 import MenuSistema from "../../MenuSistema";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-export default function FormCliente () {
+export default function FormProduto () {
 
     const [titulo, setTitulo] = useState();
     const [codProduto, setCodProduto] = useState();
@@ -17,12 +18,13 @@ export default function FormCliente () {
 
 		let produtoRequest = {
 		     titulo: titulo,
-		     codProduto: codProduto,
+		     codigo: codProduto,
 		     descricao: descricao,
 		     valorUnitario: valorUnitario,
 		     tempoEntregaMinimo: tempoEntregaMinimo,
              tempoEntregaMaximo: tempoEntregaMaximo
 		}
+
         console.log(produtoRequest)
 		axios.post("http://localhost:8080/api/produto", produtoRequest)
 		.then((response) => {
@@ -64,14 +66,10 @@ export default function FormCliente () {
                                 <Form.Input
                                     required
                                     fluid
-                                    label='Código do Produto'>
-                                    <InputMask
-                                        required
-                                        mask="999.999.999-99"
-                                        value={codProduto}
-			                            onChange={e => setCodProduto(e.target.value)}
-                                    /> 
-                                </Form.Input>
+                                    label='Código do Produto'                                                                  
+                                    value={codProduto}
+			                        onChange={e => setCodProduto(e.target.value)}                                     
+                                />
 
                             </Form.Group>
                             
@@ -94,7 +92,6 @@ export default function FormCliente () {
                                     label='Valor Unitário'
                                     width={6}>
                                     <InputMask 
-                                        mask="999.999.999,99"
                                         placeholder="R$"
                                         value={valorUnitario}
 			                            onChange={e => setValorUnitario(e.target.value)}
@@ -106,7 +103,6 @@ export default function FormCliente () {
                                     label='Tempo de Entrega Mínimo'
                                     width={6}>
                                     <InputMask 
-                                        mask="99999"
                                         placeholder="Informe em minutos"
                                         value={tempoEntregaMinimo}
 			                            onChange={e => setTempoEntregaMinino(e.target.value)}
@@ -119,7 +115,6 @@ export default function FormCliente () {
                                     width={6}
                                 >
                                     <InputMask 
-                                        mask="9999" 
                                         maskChar={null}
                                         placeholder="Informe em minutos"
                                         value={tempoEntregaMaximo}
@@ -142,7 +137,7 @@ export default function FormCliente () {
                                 color='orange'
                             >
                                 <Icon name='reply' />
-                                Voltar
+                                <Link to={'/list-produto'}>Voltar</Link>
                             </Button>
                                 
                             <Button

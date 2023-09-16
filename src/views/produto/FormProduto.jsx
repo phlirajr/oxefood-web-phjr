@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon, TextArea } from 'semantic-ui-react';
 import MenuSistema from "../../MenuSistema";
@@ -21,7 +21,7 @@ export default function FormProduto () {
         if (state != null && state.id != null) {
             axios.get("http://localhost:8080/api/produto/" + state.id).then((response) => {
                     setIdProduto(response.data.id)
-                    setTitulo(response.data.nome)
+                    setTitulo(response.data.titulo)
                     setCodProduto(response.data.codigo)
                     setDescricao(response.data.descricao)
                     setTempoEntregaMinino(response.data.tempoEntregaMinimo)
@@ -63,9 +63,9 @@ export default function FormProduto () {
                 <Container textAlign='justified' >
 
                 { idProduto === undefined &&
-                    <h2> <span style={{color: 'darkgray'}}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>}
+                    <h2> <span style={{color: 'darkgray'}}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>}
                 { idProduto !== undefined  &&
-                    <h2> <span style={{color: 'darkgray'}}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>}
+                    <h2> <span style={{color: 'darkgray'}}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>}
 
                     <Divider />
 

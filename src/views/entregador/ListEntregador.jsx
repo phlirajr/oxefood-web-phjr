@@ -85,10 +85,10 @@ return(
                                   <Table.Cell>{entregador.rg}</Table.Cell>
                                   <Table.Cell>{formatarData(entregador.dataNascimento)}</Table.Cell>
                                   <Table.Cell>{entregador.foneCelular}</Table.Cell>
-                                  <Table.Cell>{entregador.rua}</Table.Cell>
-                                  <Table.Cell>{entregador.bairro}</Table.Cell>
-                                  <Table.Cell>{entregador.cidade}</Table.Cell>
-                                  <Table.Cell>{entregador.estado}</Table.Cell>
+                                  <Table.Cell>{entregador.enderecoRua}</Table.Cell>
+                                  <Table.Cell>{entregador.enderecoBairro}</Table.Cell>
+                                  <Table.Cell>{entregador.enderecoCidade}</Table.Cell>
+                                  <Table.Cell>{entregador.enderecoUf}</Table.Cell>
                                   
                                   <Table.Cell textAlign='center'>
 
@@ -96,9 +96,9 @@ return(
                                           inverted
                                           circular
                                           color='green'
-                                          title='Clique aqui para editar os dados deste produto'
+                                          title='Clique aqui para editar os dados deste enregador'
                                           icon>
-                                               <Icon name='edit' />
+                                          <Link to="/form-entregador" state={{id: entregador.id}} style={{color: 'green'}}> <Icon name='edit' /> </Link>
                                       </Button> &nbsp;
                                       <Button
                                                inverted

@@ -9,33 +9,33 @@ import MenuSistema from "../../MenuSistema";
 export default function FormEntregador () {
 
     const options = [
-        {key:	"Acre" , text:"AC" , value: "ac"},
-        {key:	"Alagoas", text:"AL" , value: "al"},
-        {key:	"Amapá", text:"AP" , value: "ap"},
-        {key:	"Amazonas", text:"AM" , value: "am"},
-        {key:	"Bahia", text:"BA" , value: "ba"},
-        {key:	"Ceará", text:"CE" , value: "ce"},
-        {key:	"Distrito Federal", text:"DF" , value: "df"},
-        {key:	"Espírito Santo", text:"ES" , value: "es"},
-        {key:	"Goiás", text:"GO" , value: "go"},
-        {key:	"Maranhão", text:"MA" , value: "ma"},
-        {key:	"Mato Grosso", text:"MT" , value: "mt"},
-        {key:	"Mato Grosso do Sul", text:"MS" , value: "ms"},
-        {key:	"Minas Gerais", text:"MG" , value: "mg"},
-        {key:	"Pará", text:"PA" , value: "pa"},
-        {key:	"Paraíba", text:"PB" , value: "pb"},
-        {key:	"Paraná", text:"PR" , value: "pr"},
-        {key:	"Pernambuco", text:"PE" , value: "pe"},
-        {key:	"Piauí", text:"PI" , value: "pi"},
-        {key:	"Rio de Janeiro", text:"RJ" , value: "rj"},
-        {key:	"Rio Grande do Norte", text:"RN" , value: "rn"},
-        {key:	"Rio Grande do Sul", text:"RS" , value: "rs"},
-        {key:	"Rondônia", text:"RO" , value: "ro"},
-        {key:	"Roraima", text:"RR" , value: "rr"},
-        {key:	"Santa Catarina", text:"SC" , value: "sc"},
-        {key:	"São Paulo", text:"SP" , value: "sp"},
-        {key:	"Sergipe", text:"SE" , value: "se"},
-        {key:	"Tocantins", text:"TO" , value: "to"}
+        {key:	"Acre" , text:"AC" , value: "AC"},
+        {key:	"Alagoas", text:"AL" , value: "AL"},
+        {key:	"Amapá", text:"AP" , value: "AP"},
+        {key:	"Amazonas", text:"AM" , value: "AM"},
+        {key:	"Bahia", text:"BA" , value: "BA"},
+        {key:	"Ceará", text:"CE" , value: "CE"},
+        {key:	"Distrito Federal", text:"DF" , value: "DF"},
+        {key:	"Espírito Santo", text:"ES" , value: "ES"},
+        {key:	"Goiás", text:"GO" , value: "GO"},
+        {key:	"Maranhão", text:"MA" , value: "MA"},
+        {key:	"Mato Grosso", text:"MT" , value: "MT"},
+        {key:	"Mato Grosso do Sul", text:"MS" , value: "MS"},
+        {key:	"Minas Gerais", text:"MG" , value: "MG"},
+        {key:	"Pará", text:"PA" , value: "PA"},
+        {key:	"Paraíba", text:"PB" , value: "PB"},
+        {key:	"Paraná", text:"PR" , value: "PR"},
+        {key:	"Pernambuco", text:"PE" , value: "PE"},
+        {key:	"Piauí", text:"PI" , value: "PI"},
+        {key:	"Rio de Janeiro", text:"RJ" , value: "Rj"},
+        {key:	"Rio Grande do Norte", text:"RN" , value: "RN"},
+        {key:	"Rio Grande do Sul", text:"RS" , value: "RS"},
+        {key:	"Rondônia", text:"RO" , value: "RO"},
+        {key:	"Roraima", text:"RR" , value: "RR"},
+        {key:	"Santa Catarina", text:"SC" , value: "SC"},
+        {key:	"São Paulo", text:"SP" , value: "SP"},
+        {key:	"Sergipe", text:"SE" , value: "SE"},
+        {key:	"Tocantins", text:"TO" , value: "TO"}
     ]
 
     const { state } = useLocation();
@@ -61,6 +61,7 @@ export default function FormEntregador () {
     useEffect(() => {
         if (state != null && state.id != null) {
             axios.get("http://localhost:8080/api/entregador/" + state.id).then((response) => {
+
                     setIdEntregador(response.data.id)
                     setNome(response.data.nome)
                     setCpf(response.data.cpf)
@@ -95,6 +96,8 @@ export default function FormEntregador () {
              nderecoComplemento: enderecoComplemento,
              ativo: ativo
         }
+
+
         if (idEntregador != null) { //Alteração:
             axios.put("http://localhost:8080/api/entregador/" + idEntregador, entregadorRequest)
             .then((response) => { console.log('Entregador alterado com sucesso.') })
@@ -276,7 +279,7 @@ export default function FormEntregador () {
                                     options={options}
                                     placeholder='Selecione o seu estado'
                                     value={enderecoUf}
-			                        onChange={e => setEnderecoUf(e.target.value)}
+			                        onChange={(e, {value}) => setEnderecoUf(value)}
                                 />
                             </Form.Group>
 

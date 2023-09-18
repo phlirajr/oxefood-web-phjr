@@ -36,17 +36,19 @@ export default function ListEntregador () {
 
     return dataFormatada
 
-    function confirmaRemover(id) {
+    }
+
+    function confirmaRemover(id){
         setOpenModal(true)
         setIdRemover(id)
     }
-
+    
     async function remover() {
 
         await axios.delete('http://localhost:8080/api/entregador/' + idRemover)
         .then((response) => {
    
-            console.log('Cliente removido com sucesso.')
+            console.log('Entregador removido com sucesso.')
    
             axios.get('http://localhost:8080/api/entregador')
             .then((response) => {
@@ -60,7 +62,7 @@ export default function ListEntregador () {
         setOpenModal(false)
     }
 
-}
+
 return(
     <div>
         <MenuSistema />
@@ -131,7 +133,8 @@ return(
                                                circular
                                                color='red'
                                                title='Clique aqui para remover este produto'
-                                               icon onClick={e => confirmaRemover(entregador.id)}>
+                                               icon 
+                                               onClick={e => confirmaRemover(entregador.id)}>
                                                 <Icon name='trash' />
                                         </Button>
 
@@ -159,7 +162,11 @@ return(
                    <Button basic color='red' inverted onClick={() => setOpenModal(false)}>
                        <Icon name='remove' /> Não
                    </Button>
-                   <Button color='green' inverted onClick={() => remover()}>
+                   <Button 
+                    color='green'
+                    inverted
+                    onClick={() => remover()}
+                   >
                        <Icon name='checkmark' /> Sim
                    </Button>
                </Modal.Actions>

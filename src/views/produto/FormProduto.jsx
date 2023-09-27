@@ -12,6 +12,8 @@ export default function FormProduto () {
     const [idProduto, setIdProduto] = useState();
     const [titulo, setTitulo] = useState();
     const [codProduto, setCodProduto] = useState();
+    const [listaCategoria, setListaCategoria] = useState([]);
+    const [idCategoria, setIdCategoria] = useState();
     const [descricao, setDescricao] = useState();
     const [valorUnitario, setValorUnitario] = useState();
     const [tempoEntregaMinimo, setTempoEntregaMinino] = useState();
@@ -26,20 +28,29 @@ export default function FormProduto () {
                     setDescricao(response.data.descricao)
                     setTempoEntregaMinino(response.data.tempoEntregaMinimo)
                     setTempoEntregaMaximo(response.data.tempoEntregaMaximo)
+                    setIdCategoria(response.data.categoria.id)
             })
         }
+        axios.get("http://localhost:8080/api/categoria")
+        .then((response) => {
+            const dropDownCategorias = response.data.map(c => ({ text: c.descricao, value: c.id }));
+            setListaCategoria(dropDownCategorias);
+        })
+ 
     }, [state])
+ 
 
 
     function salvar() {
 
 		let produtoRequest = {
-		     titulo: titulo,
-		     codigo: codProduto,
-		     descricao: descricao,
-		     valorUnitario: valorUnitario,
-		     tempoEntregaMinimo: tempoEntregaMinimo,
-             tempoEntregaMaximo: tempoEntregaMaximo
+            idCategoria: idCategoria,
+		    titulo: titulo,
+		    codigo: codProduto,
+		    descricao: descricao,
+		    valorUnitario: valorUnitario,
+		    tempoEntregaMinimo: tempoEntregaMinimo,
+            tempoEntregaMaximo: tempoEntregaMaximo
 		}
 
         if (idProduto != null) { //Alteração:
@@ -91,6 +102,22 @@ export default function FormProduto () {
                                     value={codProduto}
 			                        onChange={e => setCodProduto(e.target.value)}                                     
                                 />
+
+                            </Form.Group>
+
+                            <Form.Group widths="equal">
+                            <Form.Select 
+                                required
+                                fluid
+                                tabIndex='3'
+                                placeholder='Selecione'
+                                label='Categoria'
+                                options={listaCategoria}
+                                value={idCategoria}
+                                onChange={(e,{value}) => {
+                                    setIdCategoria(value)
+                                }}
+                            />
 
                             </Form.Group>
                             

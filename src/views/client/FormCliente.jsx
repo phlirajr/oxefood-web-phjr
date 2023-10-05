@@ -4,6 +4,7 @@ import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import MenuSistema from "../../MenuSistema";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import { mensagemErro, notifyError, notifySuccess } from "../util/Util";
 
 export default function FormCliente () {
 
@@ -41,12 +42,22 @@ export default function FormCliente () {
 		}
         if (idCliente != null) { //Alteração:
             axios.put("http://localhost:8080/api/client/" + idCliente, clienteRequest)
-            .then((response) => { console.log('Cliente alterado com sucesso.') })
-            .catch((error) => { console.log('Erro ao alter um cliente.') })
+            .then((_response) => { notifySuccess('Cliente atualizado com sucesso.')})
+            .catch((error) => {if (error.response) {
+                notifyError(error.response.data.errors[0].defaultMessage)
+                } else {
+                notifyError(mensagemErro)
+                }
+                })
         } else { //Cadastro:
             axios.post("http://localhost:8080/api/client", clienteRequest)
-            .then((response) => { console.log('Cliente cadastrado com sucesso.') })
-            .catch((error) => { console.log('Erro ao incluir o cliente.') })
+            .then((response) => { notifySuccess('Cliente cadastrado com sucesso.')})
+            .catch((error) => {if (error.response) {
+                notifyError(error.response.data.errors[0].defaultMessage)
+                } else {
+                notifyError(mensagemErro)
+                }
+                })
         }
  
 	}
@@ -56,11 +67,10 @@ export default function FormCliente () {
         if (dataParam === null || dataParam === '' || dataParam === undefined) {
              return ''
         }
-    
-        let arrayData = dataParam.split('-')
-        let dia = arrayData[2];    
-        let mes = arrayData[1];
-        let ano = arrayData[0];
+
+        let dia = dataParam[2];    
+        let mes = dataParam[1];
+        let ano = dataParam[0];
         let dataFormatada = dia + '/' + mes + '/' + ano;
     
         return dataFormatada

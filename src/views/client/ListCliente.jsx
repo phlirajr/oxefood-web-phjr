@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Container, Divider, Header, Icon, Modal, Table } from 'semantic-ui-react';
+import { Button, Container, Divider, Form, Header, Icon, Menu, Modal, Segment, Table } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 
 export default function ListCliente () {
@@ -9,7 +9,9 @@ export default function ListCliente () {
    const [lista, setLista] = useState([]);
    const [openModal, setOpenModal] = useState(false);
    const [idRemover, setIdRemover] = useState();
-
+   const [menuFiltro, setMenuFiltro] = useState();
+   const [nome, setNome] = useState();
+   const [cpf, setCpf] = useState();
 
    useEffect(() => {
        carregarLista();
@@ -29,10 +31,9 @@ export default function ListCliente () {
          return ''
     }
 
-    let arrayData = dataParam.split('-')
-    let dia = arrayData[2];    
-    let mes = arrayData[1];
-    let ano = arrayData[0];
+    let dia = dataParam[2];    
+    let mes = dataParam[1];
+    let ano = dataParam[0];
     let dataFormatada = dia + '/' + mes + '/' + ano;
 
     return dataFormatada
@@ -62,7 +63,43 @@ export default function ListCliente () {
  
         setOpenModal(false)
     }
+    function handleMenuFiltro() {
+
+        if (menuFiltro === true) {
+            setMenuFiltro(false);
+        } else {
+            setMenuFiltro(true);
+        }
+    }
  
+    async function filtrarClientes(nomeParam, cpfParam) {
+
+        let formData = new FormData();
+ 
+        if (nomeParam !== undefined) {
+            setNome(nomeParam)
+            formData.append('nome', nomeParam);
+        }
+        if (cpfParam !== undefined) {
+            setCpf(cpfParam)
+            formData.append('cpf', cpfParam);
+        }
+
+        await axios.post("http://localhost:8080/api/client/filtrar", formData)
+        .then((response) => {
+            setLista(response.data)
+        })
+    }
+
+    function handleChangeNome(value) {
+ 
+        filtrarClientes(value, cpf);
+    }
+ 
+    function handleChangeCpf(value) {
+ 
+        filtrarClientes(nome, value);
+    }
 
 return(
     <div>
@@ -75,6 +112,15 @@ return(
                 <Divider />
 
                 <div style={{marginTop: '4%'}}>
+                    <Menu compact>
+                        <Menu.Item
+                            name='menuFiltro'
+                            active={menuFiltro === true}
+                            onClick={() => handleMenuFiltro()}>
+                            <Icon name='filter' />
+                                Filtrar
+                        </Menu.Item>
+                    </Menu>
                     <Button
                         label='Novo'
                         circular
@@ -84,6 +130,36 @@ return(
                         as={Link}
                         to='/form-cliente'
                     />
+                    { menuFiltro ?
+                            
+                            <Segment>
+                                <Form className="form-filtros">
+
+                                    <Form.Group widths='equal'> 
+                                            
+                                        <Form.Input
+                                            icon="search"
+                                            value={nome}
+                                            onChange={e => handleChangeNome(e.target.value)}
+                                            label='Nome'
+                                            placeholder='Filtrar por nome'
+                                            labelPosition='left'
+                                        />
+                                            
+                                        <Form.Input
+                                            placeholder='Filtrar por CPF'
+                                            label='CPF'
+                                            value={cpf}
+                                            onChange={(e,{value}) => {
+                                                handleChangeCpf(value)
+                                            }}>
+                                        </Form.Input>
+                                        
+                                            
+                                    </Form.Group>
+                                </Form>
+                            </Segment>:""
+                        }
                                            <br/><br/><br/>
                   
                   <Table color='orange' sortable celled>

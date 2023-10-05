@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Button, Container, Divider, Header, Icon, Modal, Table } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 
-export default function ListEntregador () {
+export default function ListCupomDesconto () {
 
    const [lista, setLista] = useState([]);
    const [openModal, setOpenModal] = useState(false);
@@ -16,7 +16,7 @@ export default function ListEntregador () {
 
    function carregarLista() {
 
-       axios.get("http://localhost:8080/api/entregador")
+       axios.get("http://localhost:8080/api/cupom")
        .then((response) => {
            setLista(response.data)
        })
@@ -35,8 +35,7 @@ export default function ListEntregador () {
 
     return dataFormatada
 
-    }
-
+}
     function confirmaRemover(id){
         setOpenModal(true)
         setIdRemover(id)
@@ -44,18 +43,18 @@ export default function ListEntregador () {
     
     async function remover() {
 
-        await axios.delete('http://localhost:8080/api/entregador/' + idRemover)
+        await axios.delete('http://localhost:8080/api/cupom/' + idRemover)
         .then((response) => {
    
             console.log('Entregador removido com sucesso.')
    
-            axios.get('http://localhost:8080/api/entregador')
+            axios.get('http://localhost:8080/api/cupom')
             .then((response) => {
                 setLista(response.data)
             })
         })
         .catch((error) => {
-            console.log('Erro ao remover um entregador.')
+            console.log('Erro ao remover um cupom.')
         })
  
         setOpenModal(false)
@@ -69,7 +68,7 @@ return(
 
             <Container textAlign='justified' >
 
-                <h2> Entregador </h2>
+                <h2> Cupom </h2>
                 <Divider />
 
                 <div style={{marginTop: '4%'}}>
@@ -80,7 +79,7 @@ return(
                         icon='clipboard outline'
                         floated='right'
                         as={Link}
-                        to='/form-entregador'
+                        to='/form-cupom'
                     />
                                            <br/><br/><br/>
                   
@@ -88,15 +87,13 @@ return(
 
                       <Table.Header>
                           <Table.Row>
-                              <Table.HeaderCell>Nome</Table.HeaderCell>
-                              <Table.HeaderCell>CPF</Table.HeaderCell>
-                              <Table.HeaderCell>RG</Table.HeaderCell>
-                              <Table.HeaderCell>Data de Nascimento</Table.HeaderCell>
-                              <Table.HeaderCell>Fone Celular</Table.HeaderCell>
-                              <Table.HeaderCell>Rua</Table.HeaderCell>
-                              <Table.HeaderCell>Bairro</Table.HeaderCell>
-                              <Table.HeaderCell>Cidade</Table.HeaderCell>
-                              <Table.HeaderCell>Estado</Table.HeaderCell>
+                              <Table.HeaderCell>Código</Table.HeaderCell>
+                              <Table.HeaderCell>Percentual Desconto</Table.HeaderCell>
+                              <Table.HeaderCell>Valor Desconto</Table.HeaderCell>
+                              <Table.HeaderCell>Valor Minimo do Pedido</Table.HeaderCell>
+                              <Table.HeaderCell>Quantidade Máxima de Uso por Cliente</Table.HeaderCell>
+                              <Table.HeaderCell>Início Vigência</Table.HeaderCell>
+                              <Table.HeaderCell>Fim Vigência</Table.HeaderCell>
                               
                               <Table.HeaderCell textAlign='center'>Ações</Table.HeaderCell>
                           </Table.Row>
@@ -104,36 +101,33 @@ return(
                  
                       <Table.Body>
 
-                          { lista.map(entregador => (
+                          { lista.map(cupom => (
 
-                              <Table.Row key={entregador.id}>
-                                  <Table.Cell>{entregador.nome}</Table.Cell>
-                                  <Table.Cell>{entregador.cpf}</Table.Cell>
-                                  <Table.Cell>{entregador.rg}</Table.Cell>
-                                  <Table.Cell>{formatarData(entregador.dataNascimento)}</Table.Cell>
-                                  <Table.Cell>{entregador.foneCelular}</Table.Cell>
-                                  <Table.Cell>{entregador.enderecoRua}</Table.Cell>
-                                  <Table.Cell>{entregador.enderecoBairro}</Table.Cell>
-                                  <Table.Cell>{entregador.enderecoCidade}</Table.Cell>
-                                  <Table.Cell>{entregador.enderecoUf}</Table.Cell>
-                                  
+                              <Table.Row key={cupom.id}>
+                                  <Table.Cell>{cupom.codigoDesconto}</Table.Cell>
+                                  <Table.Cell>{cupom.percentualDesconto}</Table.Cell>
+                                  <Table.Cell>{cupom.valorDesconto}</Table.Cell>
+                                  <Table.Cell>{cupom.valorMinimoPedidoPermitido}</Table.Cell>
+                                  <Table.Cell>{cupom.quantidadeMaximaUso}</Table.Cell>
+                                  <Table.Cell>{formatarData(cupom.inicioVigencia)}</Table.Cell>
+                                  <Table.Cell>{formatarData(cupom.fimVigencia)}</Table.Cell>                                  
                                   <Table.Cell textAlign='center'>
 
                                       <Button
                                           inverted
                                           circular
                                           color='green'
-                                          title='Clique aqui para editar os dados deste enregador'
+                                          title='Clique aqui para editar os dados deste cupom'
                                           icon>
-                                          <Link to="/form-entregador" state={{id: entregador.id}} style={{color: 'green'}}> <Icon name='edit' /> </Link>
+                                          <Link to="/form-cupom" state={{id: cupom.id}} style={{color: 'green'}}> <Icon name='edit' /> </Link>
                                       </Button> &nbsp;
                                       <Button
                                                inverted
                                                circular
                                                color='red'
-                                               title='Clique aqui para remover este produto'
+                                               title='Clique aqui para remover este cupom'
                                                icon 
-                                               onClick={e => confirmaRemover(entregador.id)}>
+                                               onClick={e => confirmaRemover(cupom.id)}>
                                                 <Icon name='trash' />
                                         </Button>
 
